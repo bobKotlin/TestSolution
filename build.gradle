@@ -69,6 +69,26 @@ buildscript {
                 lib          : "com.squareup.retrofit2:retrofit:$retrofitVersion",
                 jsonConverter: "com.squareup.retrofit2:converter-gson:$retrofitVersion"
         ]
+        //Unit tests
+        junitVersion = "4.13.2"
+        mockitoVersion = "3.12.4"
+        mockitoKotlinVersion = "4.0.0"
+        coroutinesTestVersion = "1.6.4"
+
+        unitTests = [
+                junit         : "junit:junit:$junitVersion",
+                mockitoCore   : "org.mockito:mockito-core:$mockitoVersion",
+                mockitoInline : "org.mockito:mockito-inline:$mockitoVersion",
+                mockitoKotlin : "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion",
+                coroutinesTest: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesTestVersion"
+        ]
+
+        composeTestVersion = "1.3.1"
+        junitExtVersion = "1.1.5"
+        uiTests = [
+                junitCompose: "androidx.compose.ui:ui-test-junit4:$composeTestVersion",
+                testJunit    : "androidx.test.ext:junit:$junitExtVersion"
+        ]
     }
 
     dependencies {

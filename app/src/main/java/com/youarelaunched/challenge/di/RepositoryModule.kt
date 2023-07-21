@@ -13,4 +13,5 @@ interface RepositoryModule {
 
     @Binds
     fun bindRepository(impl: VendorsRepositoryImpl): VendorsRepository
+
 }

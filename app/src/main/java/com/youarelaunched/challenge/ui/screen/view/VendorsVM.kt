@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.youarelaunched.challenge.data.repository.VendorsRepository
 import com.youarelaunched.challenge.ui.screen.state.VendorsScreenUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -31,9 +32,33 @@ class VendorsVM @Inject constructor(
         viewModelScope.launch {
             _uiState.update {
                 it.copy(
-                    vendors = repository.getVendors()
+                    vendors = repository.getVendors(),
+                    isSearching = true
                 )
             }
+        }
+    }
+
+    private fun filterVendorsByCompanyName(companyName: String) {
+        viewModelScope.launch {
+            _uiState.update {
+                it.copy(
+                    vendors = repository.getFilterVendorsByCompanyName(companyName),
+                    isSearching = true
+                )
+            }
+        }
+    }
+
+    fun onClickButtonSearch(companyName: String) {
+        filterVendorsByCompanyName(companyName)
+    }
+
+    fun onSearchAfter3Letter(companyName: String, isFasterThenLoad: () -> Boolean) {
+        viewModelScope.launch {
+            delay(500)
+            if (!isFasterThenLoad())
+                filterVendorsByCompanyName(companyName)
         }
     }
 
